@@ -9,7 +9,7 @@ create table producto (
   estado enum('activo', 'inactivo') not null default 'activo'
 ) engine=innodb charset=utf8 collate=utf8_unicode_ci;
 
-create table fotos (
+create table foto (
   id tinyint(4) not null primary key auto_increment,
   idproducto tinyint(4) not null,
   nombre varchar(50) not null,

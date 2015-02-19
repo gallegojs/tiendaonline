@@ -71,7 +71,7 @@ class ModeloProducto {
         $r = $this->bd->setConsulta($sql, $parametro);
         if($r){
             while($fila = $this->bd->getFila()){
-                $producto = new Plato();
+                $producto = new Producto();
                 $producto->set($fila);
                 $list[] = $producto;
             }
