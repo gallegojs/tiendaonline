@@ -42,7 +42,7 @@ class ModeloFoto {
         }
         return $this->bd->getNumeroFilas();
     }
-    private function getNombreFotos($idproducto){
+    function getNombreFotos($idproducto){
         $list = array();
         $sql = "select * from $this->tabla where idproducto=:idproducto";
         $param['idproducto']=$idproducto;

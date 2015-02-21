@@ -65,7 +65,7 @@ class ModeloProducto {
     }
     
     function getList($p=0, $rpp=3, $condicion="1=1", $parametro=array(), $orderby = "1"){
-        $principio = $pagina*$rpp;
+        $principio = $p*$rpp;
         $list = array();
         $sql = "select * from $this->tabla where $condicion order by $orderby limit $principio,$rpp";
         $r = $this->bd->setConsulta($sql, $parametro);

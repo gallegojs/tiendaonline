@@ -17,7 +17,7 @@ class Producto {
         $this->estado = $estado;
     }
     
-    function set($datos, $inicio){
+    function set($datos, $inicio=0){
         $this->id = $datos[0+$inicio];
         $this->nombre = $datos[1+$inicio];
         $this->descripcion = $datos[2+$inicio];
