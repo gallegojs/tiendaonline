@@ -12,9 +12,9 @@ class ModeloVenta {
         $this->bd = $bd;
     }
     function add(Venta $venta){
-        $sql = "INSERT INTO $this->tabla VALUES (null, :fecha, :hora, :pago, :direccion, :nombre, :precio, :iva)";
-        $param['fecha']=$venta->getFecha();
-        $param['hora']=$venta->getHora();
+        $sql = "INSERT INTO $this->tabla VALUES (null, CURDATE(), CURTIME(), :pago, :direccion, :nombre, :precio, :iva)";
+        //$param['fecha']=$venta->getFecha();
+        //$param['hora']=$venta->getHora();
         $param['pago']=$venta->getPago();
         $param['direccion']=$venta->getDireccion();
         $param['nombre']=$venta->getNombre();
@@ -38,7 +38,7 @@ class ModeloVenta {
         return $this->bd->getNumeroFilas();
     }
     
-    function edit(Producto $producto){
+    function edit(Venta $venta){
         $sql = "UPDATE $this->tabla SET fecha=:fecha, hora=:hora, pago=:pago, direccion=:direccion, nombre=:nombre, precio=:precio, iva=:iva WHERE id=:id";
         $param['fecha']=$venta->getFecha();
         $param['hora']=$venta->getHora();
@@ -47,6 +47,7 @@ class ModeloVenta {
         $param['nombre']=$venta->getNombre();
         $param['precio']=$venta->getPrecio();
         $param['iva']=$venta->getIva();
+        $param['id']=$venta->getId();
         $r=$this->bd->setConsulta($sql, $param);
         if(!$r){
             return -1;

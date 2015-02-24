@@ -7,7 +7,7 @@
 class Venta {
     private $id, $fecha, $hora, $pago, $direccion, $nombre, $precio, $iva;
     
-    function __construct($id=null, $fecha=null, $hora=null, $pago=null, $direccion=null, $nombre=null, $precio=null, $iva=null) {
+    function __construct($id=null, $fecha=null, $hora=null, $pago="no", $direccion="", $nombre="", $precio=0, $iva=0) {
         $this->id = $id;
         $this->fecha = $fecha;
         $this->hora = $hora;
@@ -18,7 +18,7 @@ class Venta {
         $this->iva = $iva;
     }
 
-    function set($datos, $inicio){
+    function set($datos, $inicio=0){
         $this->id = $datos[0+$inicio];
         $this->fecha = $datos[1+$inicio];
         $this->hora = $datos[2+$inicio];

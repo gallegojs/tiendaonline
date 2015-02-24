@@ -17,7 +17,7 @@ create table foto (
 ) engine=innodb charset=utf8 collate=utf8_unicode_ci;
 
 create table venta (
-  id tinyint(4) not null primary key auto_increment,
+  id int not null primary key auto_increment,
   fecha date not null,
   hora time not null, 
   pago enum('si', 'no', 'rev') not null default 'no',
@@ -28,11 +28,21 @@ create table venta (
 ) engine=innodb charset=utf8 collate=utf8_unicode_ci;
 
 create table detalleventa (
-  id tinyint(4) not null primary key auto_increment,
-  idventa tinyint(4) not null,
+  id int not null primary key auto_increment,
+  idventa int not null,
   idproducto tinyint(4) not null,
   cantidad tinyint(4) not null,
   precio decimal(10,2) not null,
-  iva decimal(4,2) not null
+  iva decimal(4,2) not null,
+  CONSTRAINT detalleventa_fk FOREIGN KEY (idventa) REFERENCES venta (id) ON DELETE CASCADE
 ) engine=innodb charset=utf8 collate=utf8_unicode_ci;
 
+create table paypal(
+    idpaypal varchar(100) not null primary key,
+    idpropio int not null,
+    estado varchar(30) not null,
+    importe decimal(10,2) not null,
+    moneda varchar(10) not null,
+    emailvendedor varchar(320) not null,
+    emailcomprador varchar(320) not null
+) engine=innodb charset=utf8 collate=utf8_unicode_ci;

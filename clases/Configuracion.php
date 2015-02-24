@@ -8,8 +8,7 @@ class Configuracion {
     const USUARIO = "root";
     const CLAVE = "";
     const PEZARANA = "PESCAITO DE MOTRIL";
-    const ORIGENGMAIL = "correo@gmail.com";
-    const CLAVEGMAIL = "*******";
+    const CORREO_PAYPAL = "javi#pa";
     const RPP = 6;
     const TIMEOUT = 1800;
 }

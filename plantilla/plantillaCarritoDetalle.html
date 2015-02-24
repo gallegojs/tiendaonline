@@ -1,3 +1,20 @@
 <tr>
-    <td>{nombre-carrito}</td><td>{precio-carrito}</td><td>{cantidad-carrito}</td><td>+</td><td>-</td><td>x</td>
+    <td>
+        {nombre-carrito}
+    </td>
+    <td>
+        {precio-carrito}
+    </td>
+    <td>
+        {cantidad-carrito}
+    </td>
+    <td>
+        <a href="?op=insert&action=do&target=carrito&id={id}">+</a>
+    </td>
+    <td>
+        <a href="?op=sub&action=do&target=carrito&id={id}">-</a>
+    </td>
+    <td>
+        <a href="?op=delete&action=do&target=carrito&id={id}">-</a>
+    </td>
 </tr>
