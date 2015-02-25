@@ -64,10 +64,9 @@ class ModeloProducto {
         return null;
     }
     
-    function getList($p=0, $rpp=3, $condicion="1=1", $parametro=array(), $orderby = "1"){
-        $principio = $p*$rpp;
+    function getList($condicion="1=1", $parametro=array(), $orderby = "1"){
         $list = array();
-        $sql = "select * from $this->tabla where $condicion order by $orderby limit $principio,$rpp";
+        $sql = "select * from $this->tabla where $condicion order by $orderby";
         $r = $this->bd->setConsulta($sql, $parametro);
         if($r){
             while($fila = $this->bd->getFila()){

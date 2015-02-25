@@ -21,7 +21,13 @@
         <link rel="stylesheet" href="../css/estilos-front.css">
     </head>
     <body>
-        <header><img src="../img/logo.png"></header>
+        <header>
+            <img class="logo" src="../img/logo.png">
+            <ul class="menu-principal">
+                <li><a href="../do/?">INICIO</a></li>
+                <li><a href="../backend/gestion.php">GESTIÓN-PRINCIPAL</a></li>
+            </ul>
+        </header>
         <section>
         
         <div class="tabla-tienda" style="width: 80%">

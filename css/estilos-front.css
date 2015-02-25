@@ -51,13 +51,14 @@ table {
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 body{
     font-family: 'Open Sans', sans-serif;
+    background-color: #eee;
 }
 #central{
     display: flex;
     flex-flow: row wrap-reverse;
 }
 #central *{
-    margin: 2px;
+    
 }
 #central>section{
     flex: 3 1 600px;
@@ -71,7 +72,15 @@ body{
 .item-tienda{
     flex: 0 1 280px;
     align-content: center;
-    background-color: #eee;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         1px 1px 5px 0px rgba(50, 50, 50, 0.75);
+    border-radius: 5px;
+    overflow: hidden;
 }
 .item-tienda td{
     padding: 3px;
@@ -87,7 +96,7 @@ body{
     flex: 1 1 300px;
 }
 .boton-comprar{
-    color: rgb(230, 230, 230);
+    color: #fff;
     font-size: 16px;
     padding: 14px;
     text-shadow: 0px -1px 0px rgba(30, 30, 30, 0.8);
@@ -206,13 +215,20 @@ body{
 }
 
 h1{
-    font-size: 20px;
+    font-size: 25px;
+    text-align: center;
+    border-bottom: 2px solid #ff7f00;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    color: #ff7f00;
 }
 header{
     height: 100px;
     line-height: 100px;
     background-color: #f9b97c;
     margin-bottom: 20px;
+    overflow: hidden;
 }
 header img{
     height: 100px;
@@ -226,4 +242,32 @@ header img{
 input{
     padding: 5px;
     margin: 10px;
+}
+
+.totalprecio{
+    font-weight: bold;
+    
+}
+.ok-paypal form{
+    text-align: center;
+}
+
+.menu-principal li a{
+    font-weight: bold;
+    display: inline;
+    text-decoration: none;
+    color: white;
+}
+.logo{
+    float: left;
+    margin-left: 60px;
+}
+.menu-principal{
+    float: right;
+    display: inline;
+    margin-right: 60px;
+}
+.menu-principal li{
+    display: inline;
+    margin-left: 20px;
 }

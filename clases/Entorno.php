@@ -86,5 +86,7 @@ class Entorno {
     static function getServidor() {
         return $_SERVER['SERVER_NAME'];
     }
-
+    static function getProcedencia(){
+        return $_SERVER['HTTP_REFERER'];
+    }
 }

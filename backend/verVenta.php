@@ -16,7 +16,13 @@
         <title>Venta <?php echo $idventa; ?> - Gestión tienda</title>
     </head>
     <body>
-        <header><img src="../img/logo.png"></header>
+        <header>
+            <img class="logo" src="../img/logo.png">
+            <ul class="menu-principal">
+                <li><a href="../do/?">INICIO</a></li>
+                <li><a href="../backend/gestion.php">GESTIÓN-PRINCIPAL</a></li>
+            </ul>
+        </header>
         <section>
             <h1>Detalles de la venta: <?php echo $idventa ?></h1>
             <div class="tabla-tienda" style="width: 80%">

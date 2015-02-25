@@ -7,22 +7,26 @@
 class Controlador {
     function selectViewProductos(){
         $bd = new BaseDatos();
-        $modelo = new ModeloProducto($bd);
-        $productos = $modelo->getList(0, 6);
+        /*$modelo = new ModeloProducto($bd);
+        $productos = $modelo->getList();*/
         $filas = "";
-        foreach ($productos as $key => $value) {
-            if($value->getEstado()=="inactivo"){
+        $modeloprodfoto = new ModeloInnerProductoFoto($bd);
+        $productos = $modeloprodfoto->getLeftList();
+        foreach ($productos as $key => $valor) {
+            $producto = $valor->getProducto();
+            $foto = $valor->getFoto();
+            if($producto->getEstado()=="inactivo"){
                 continue;
             }
-            $modelofoto = new ModeloFoto($bd);
-            $foto = $modelofoto->getNombreFotos($value->getId()); 
+            //$modelofoto = new ModeloFoto($bd);
+            //$foto = $modelofoto->getNombreFotos($value->getId()); 
             $datos = array(
-                "id" => $value->getId(),
-                "nombre" => $value->getNombre(),
-                "precio" => $value->getPrecio(),
-                "iva" => $value->getIva(),
-                "descripcion" => $value->getDescripcion(),
-                "foto" => $foto[0]
+                "id" => $producto->getId(),
+                "nombre" => $producto->getNombre(),
+                "precio" => $producto->getPrecio(),
+                "iva" => $producto->getIva(),
+                "descripcion" => $producto->getDescripcion(),
+                "foto" => $foto->getNombre()
             );
             $v = new Vista("plantillaProductoListado", $datos);
             $filas.= $v->renderData();
@@ -56,9 +60,7 @@ class Controlador {
     function insertDoCarrito(){
         $id = Leer::request("id");
         $bd = new BaseDatos();
-        // añadir el producto a la cesta
         session_start();
-        
         if(!isset($_SESSION["__carrito"])) {
             $_SESSION["__carrito"] = new Carrito(); 
         }
@@ -68,33 +70,35 @@ class Controlador {
 
         $carrito->addLinea($producto);
         $_SESSION["__carrito"] = $carrito;
-        header('Location: ?op=select&action=view&target=productos');
+        header('Location: '.Entorno::getProcedencia());
     }
     function subDoCarrito(){
         $id = Leer::request("id");
         $bd = new BaseDatos();
         session_start();
         if(!isset($_SESSION["__carrito"])) {
-            header('Location: ?op=select&action=view&target=productos');
+            header('Location: '.Entorno::getProcedencia());
             exit();
         }
         $carrito = $_SESSION["__carrito"];
         $carrito->supLinea($id);
         $_SESSION["__carrito"] = $carrito;
-        header('Location: ?op=select&action=view&target=productos');
+        header('Location: '.Entorno::getProcedencia());
     }
     function deleteDoCarrito(){
+        
         $id = Leer::request("id");
         $bd = new BaseDatos();
         session_start();
         if(!isset($_SESSION["__carrito"])) {
-            header('Location: ?op=select&action=view&target=productos');
+            header('Location: '.Entorno::getProcedencia());
             exit();
         }
         $carrito = $_SESSION["__carrito"];
         $carrito->delLinea($id);
         $_SESSION["__carrito"] = $carrito;
-        header('Location: ?op=select&action=view&target=productos');
+        header('Location: '.Entorno::getProcedencia());
+        
     }
     function selectViewCarrito(){
         session_start();
@@ -253,10 +257,6 @@ class Controlador {
         }
         
         curl_close($cURL);
-        
-        
-        
-        
     }
     function handle(){
         $metodo = "";
