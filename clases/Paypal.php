@@ -5,33 +5,38 @@
  * @author Javier Gallego
  */
 class Paypal {
-    private $estado, $emailvendedor, $importe, $moneda, $idpaypal, $emailcomprador, $idpropio;
-    function __construct($estado, $emailvendedor, $importe, $moneda, $idpaypal, $emailcomprador, $idpropio) {
+    private $idpaypal, $idpropio, $estado, $importe, $moneda, $emailvendedor, $emailcomprador;
+    
+    function __construct($idpaypal=null, $idpropio=null, $estado=null, $importe=null, $moneda=null, $emailvendedor=null, $emailcomprador=null) {
+        $this->idpaypal = $idpaypal;
+        $this->idpropio = $idpropio;
         $this->estado = $estado;
-        $this->emailvendedor = $emailvendedor;
         $this->importe = $importe;
         $this->moneda = $moneda;
-        $this->idpaypal = $idpaypal;
+        $this->emailvendedor = $emailvendedor;
         $this->emailcomprador = $emailcomprador;
-        $this->idpropio = $idpropio;
     }
     
-    function set($datos, $inicio){
-        $this->estado = $datos[0+$inicio];
-        $this->emailvendedor = $datos[1+$inicio];
-        $this->importe = $datos[2+$inicio];
-        $this->moneda = $datos[3+$inicio];
-        $this->idpaypal = $datos[4+$inicio];
-        $this->emailcomprador = $datos[5+$inicio];
-        $this->idpropio = $datos[6+$inicio];
+    function set($datos, $inicio=0){
+        $this->idpaypal = $datos[0+$inicio];
+        $this->idpropio = $datos[1+$inicio];
+        $this->estado = $datos[2+$inicio];
+        $this->importe = $datos[3+$inicio];
+        $this->moneda = $datos[4+$inicio];
+        $this->emailvendedor = $datos[5+$inicio];
+        $this->emailcomprador = $datos[6+$inicio];
     }
     
-    function setEstado($estado) {
-        $this->estado = $estado;
+    function setIdpaypal($idpaypal) {
+        $this->idpaypal = $idpaypal;
     }
 
-    function setEmailvendedor($emailvendedor) {
-        $this->emailvendedor = $emailvendedor;
+    function setIdpropio($idpropio) {
+        $this->idpropio = $idpropio;
+    }
+
+    function setEstado($estado) {
+        $this->estado = $estado;
     }
 
     function setImporte($importe) {
@@ -42,24 +47,24 @@ class Paypal {
         $this->moneda = $moneda;
     }
 
-    function setIdpaypal($idpaypal) {
-        $this->idpaypal = $idpaypal;
+    function setEmailvendedor($emailvendedor) {
+        $this->emailvendedor = $emailvendedor;
     }
 
     function setEmailcomprador($emailcomprador) {
         $this->emailcomprador = $emailcomprador;
     }
 
-    function setIdpropio($idpropio) {
-        $this->idpropio = $idpropio;
+    function getIdpaypal() {
+        return $this->idpaypal;
+    }
+
+    function getIdpropio() {
+        return $this->idpropio;
     }
 
     function getEstado() {
         return $this->estado;
-    }
-
-    function getEmailvendedor() {
-        return $this->emailvendedor;
     }
 
     function getImporte() {
@@ -70,17 +75,15 @@ class Paypal {
         return $this->moneda;
     }
 
-    function getIdpaypal() {
-        return $this->idpaypal;
+    function getEmailvendedor() {
+        return $this->emailvendedor;
     }
 
     function getEmailcomprador() {
         return $this->emailcomprador;
     }
 
-    function getIdpropio() {
-        return $this->idpropio;
-    }
 
+    
 
 }

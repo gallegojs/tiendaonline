@@ -55,7 +55,7 @@ class Util {
             $html .= "<a href='$enlace=".($p+1)."'>&gt;</a> ";
         }
         
-        $html .= "<a href='$enlace=".($paginas-1)."'>&gt;&gt;</a> ";
+        $html .= "<a href='$enlace=".(round($paginas, 0, PHP_ROUND_HALF_UP))."'>&gt;&gt;</a> ";
         return $html;
     }
     static function getEnlacesAjax($p, $paginas){

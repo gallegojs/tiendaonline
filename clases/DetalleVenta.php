@@ -16,7 +16,7 @@ class DetalleVenta {
         $this->iva = $iva;
     }
 
-    function set($datos, $inicio){
+    function set($datos, $inicio=0){
         $this->id = $datos[0+$inicio];
         $this->idventa = $datos[1+$inicio];
         $this->idproducto = $datos[2+$inicio];

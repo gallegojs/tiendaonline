@@ -1,3 +1,5 @@
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -46,13 +48,15 @@ table {
     Created on : 22-feb-2015, 16:48:23
     Author     : Javier Gallego
 */
-
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+body{
+    font-family: 'Open Sans', sans-serif;
+}
 #central{
     display: flex;
     flex-flow: row wrap-reverse;
 }
 #central *{
-    border: 1px solid;
     margin: 2px;
 }
 #central>section{
@@ -67,6 +71,10 @@ table {
 .item-tienda{
     flex: 0 1 280px;
     align-content: center;
+    background-color: #eee;
+}
+.item-tienda td{
+    padding: 3px;
 }
 .foto-item-tienda{
     overflow: hidden;
@@ -98,4 +106,124 @@ table {
     text-decoration: none;
     display: block;
     text-align: center;
+}
+
+.tabla-tienda {
+    margin:0px;padding:0px;
+    width:100%;
+    /*box-shadow: 10px 10px 5px #888888;*/
+    border:1px solid #ffd4aa;
+    margin: 0 auto;
+
+    -moz-border-radius-bottomleft:0px;
+    -webkit-border-bottom-left-radius:0px;
+    border-bottom-left-radius:0px;
+
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-bottom-right-radius:0px;
+
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
+
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
+}.tabla-tienda table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width:100%;
+    height:100%;
+    margin:0px;padding:0px;
+}.tabla-tienda tr:last-child td:last-child {
+    -moz-border-radius-bottomright:0px;
+    -webkit-border-bottom-right-radius:0px;
+    border-bottom-right-radius:0px;
+}
+.tabla-tienda table tr:first-child td:first-child {
+    -moz-border-radius-topleft:0px;
+    -webkit-border-top-left-radius:0px;
+    border-top-left-radius:0px;
+}
+.tabla-tienda table tr:first-child td:last-child {
+    -moz-border-radius-topright:0px;
+    -webkit-border-top-right-radius:0px;
+    border-top-right-radius:0px;
+}.tabla-tienda tr:last-child td:first-child{
+    -moz-border-radius-bottomleft:0px;
+    -webkit-border-bottom-left-radius:0px;
+    border-bottom-left-radius:0px;
+}.tabla-tienda tr:hover td{
+
+}
+.tabla-tienda tr:nth-child(odd){ background-color:#f9b97c; }
+.tabla-tienda tr:nth-child(even)    { background-color:#ffffff; }.tabla-tienda td{
+    vertical-align:middle;
+
+
+    border:1px solid #ffd4aa;
+    border-width:0px 1px 1px 0px;
+    text-align:left;
+    padding:10px;
+    font-size:12px;
+    font-family:Verdana;
+    font-weight:normal;
+    color:#000000;
+}.tabla-tienda tr:last-child td{
+    border-width:0px 1px 0px 0px;
+}.tabla-tienda tr td:last-child{
+    border-width:0px 0px 1px 0px;
+}.tabla-tienda tr:last-child td:last-child{
+    border-width:0px 0px 0px 0px;
+}
+.tabla-tienda tr:first-child td{
+    background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+    background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+    background-color:#ff7f00;
+    border:0px solid #ffd4aa;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:14px;
+    font-family:Verdana;
+    font-weight:bold;
+    color:#ffffff;
+}
+.tabla-tienda tr:first-child:hover td{
+    background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+    background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+    background-color:#ff7f00;
+}
+.tabla-tienda tr:first-child td:first-child{
+    border-width:0px 0px 1px 0px;
+}
+.tabla-tienda tr:first-child td:last-child{
+    border-width:0px 0px 1px 1px;
+}
+
+h1{
+    font-size: 20px;
+}
+header{
+    height: 100px;
+    line-height: 100px;
+    background-color: #f9b97c;
+    margin-bottom: 20px;
+}
+header img{
+    height: 100px;
+}
+.mitad{
+    width: 40%;
+    float: left;
+    padding: 2%;
+}
+
+input{
+    padding: 5px;
+    margin: 10px;
 }

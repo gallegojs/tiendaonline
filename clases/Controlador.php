@@ -15,7 +15,7 @@ class Controlador {
                 continue;
             }
             $modelofoto = new ModeloFoto($bd);
-            $foto = $modelofoto->getNombreFotos($value->getId()); //////////////implementar ijpf
+            $foto = $modelofoto->getNombreFotos($value->getId()); 
             $datos = array(
                 "id" => $value->getId(),
                 "nombre" => $value->getNombre(),
@@ -33,16 +33,21 @@ class Controlador {
         $v = new Vista("plantillaProductos", $datos);
         $tabla = $v->renderData();
 
-        /*Procesado del carrito*/
         $tablacarrito = $this->selectViewCarrito();
         $datos = array(
-            "title" => "Titulo",
-            "title" => "Otro titulo",
             "contenido" => $tabla,
             "carrito" => $tablacarrito,
             "enlace" => Entorno::getEnlaceCarpeta()
         );
         $v = new Vista("escaparate", $datos);
+        $escaparate = $v->renderData();
+        
+        
+        $datos = array(
+            "contenido-general" => $escaparate,
+            "enlace" => Entorno::getEnlaceCarpeta()
+        );
+        $v = new Vista("plantillaPrincipal", $datos);
         $v->render();
         exit();
     
@@ -122,14 +127,19 @@ class Controlador {
     function insertViewVenta(){
         $tablacarrito = $this->selectViewCarrito();
         $datos = array(
-            "title" => "Titulo",
-            "title" => "Otro titulo",
-            "contenido" => $tabla,
             "carrito" => $tablacarrito,
             "enlace" => Entorno::getEnlaceCarpeta()
         );
         $v = new Vista("plantillaPagoPaypal", $datos);
+        $previopago = $v->renderData();
+        
+        $datos = array(
+            "contenido-general" => $previopago,
+            "enlace" => Entorno::getEnlaceCarpeta()
+        );
+        $v = new Vista("plantillaPrincipal", $datos);
         $v->render();
+        exit();
     }
     function insertDoVenta(){
         $nombre = Leer::post("nombre");
@@ -164,8 +174,88 @@ class Controlador {
         $venta->setPrecio($preciototal);
         $modeloventa->edit($venta);
         
-        echo "ok o no ok no se sabe";
-        //header("Location: ?")
+        header("Location: ?op=insert&action=view&target=paypal&idventa=$idventa");
+        
+    }
+    function insertViewPaypal(){
+        $idventa = Leer::get("idventa");
+        $bd = new BaseDatos();
+        $modeloventa = new ModeloVenta($bd);
+        $venta = $modeloventa->get($idventa);
+        $datos = array(
+            "correo-vendedor" => Configuracion::CORREO_PAYPAL,
+            "idventa" => $venta->getId(),
+            "precio-total" => $venta->getPrecio()
+        );
+        $v = new Vista("plantillaConfirmarPago", $datos);
+        $contenido = $v->renderData();
+        
+        $datos = array(
+            "contenido-general" => $contenido,
+            "enlace" => Entorno::getEnlaceCarpeta()
+        );
+        $v = new Vista("plantillaPrincipal", $datos);
+        $v->render();
+        exit();
+        
+    }
+    function insertDoPaypal(){
+        $idpaypal = Leer::post("txn_id");
+        $idpropio = Leer::post("item_name");
+        $estado = Leer::post("payment_status");
+        $importe = Leer::post("mc_gross");
+        $moneda = Leer::post("mc_currency");
+        $emailvendedor = Leer::post("receiver_email");
+        $emailcomprador = Leer::post("payer_email");
+        
+        $bd = new BaseDatos();
+        $modelopaypal = new ModeloPaypal($bd);
+        $modeloventa = new ModeloVenta($bd);
+        $venta = $modeloventa->get($idpropio);
+        $paypal = new Paypal($idpaypal, $idpropio, $estado, $importe, $moneda, $emailvendedor, $emailcomprador);
+        $modelopaypal->add($paypal);
+        
+
+        $cURL = curl_init();
+        curl_setopt($cURL, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($cURL, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($cURL, CURLOPT_URL, "https://www.sandbox.paypal.com/cgi-bin/webscr");
+        curl_setopt($cURL, CURLOPT_ENCODING, 'gzip');
+        curl_setopt($cURL, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($cURL, CURLOPT_POST, true);
+        $_POST['cmd'] = '_notify-validate';
+        curl_setopt($cURL, CURLOPT_POSTFIELDS, $_POST);
+        curl_setopt($cURL, CURLOPT_HEADER, false);
+        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($cURL, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        curl_setopt($cURL, CURLOPT_FORBID_REUSE, true);
+        curl_setopt($cURL, CURLOPT_FRESH_CONNECT, true);
+        curl_setopt($cURL, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($cURL, CURLOPT_TIMEOUT, 60);
+        curl_setopt($cURL, CURLINFO_HEADER_OUT, true);
+        curl_setopt($cURL, CURLOPT_HTTPHEADER, array(
+        'Connection: close',
+        'Expect: ',
+        ));
+        $respuesta = curl_exec($cURL);
+        $estatus = (int)curl_getinfo($cURL, CURLINFO_HTTP_CODE);
+        
+        file_put_contents("errores.txt", $respuesta."\n", FILE_APPEND);
+        file_put_contents("errores.txt", $estatus."\n", FILE_APPEND);
+        file_put_contents("errores.txt", strcmp($respuesta, "VERIFIED")."\n", FILE_APPEND);
+        
+        if (strcmp ($respuesta, "VERIFIED") == 0){
+            $venta->setPago("si");
+            $r=$modeloventa->edit($venta);
+        }else{
+            $venta->setPago("rev");
+            $r=$modeloventa->edit($venta);
+        }
+        
+        curl_close($cURL);
+        
+        
+        
         
     }
     function handle(){

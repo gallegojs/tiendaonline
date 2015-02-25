@@ -1,0 +1,15 @@
+<div>
+    <h1>Pulse para ser enviado a paypal para realizar el pago</h1>
+    <div>
+    <form name="_xclick" method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr" >
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="{correo-vendedor}">
+        <input type="hidden" name="currency_code" value="EUR">
+        <input type="hidden" name="item_name" value="{idventa}">
+        <input type="hidden" name="amount" value="{precio-total}">
+        <input type="hidden" name="return" value="http://deportesguerra.hol.es/do?op=select&action=view&target=venta">
+        <input type="hidden" name="notify_url" value="http://deportesguerra.hol.es/do?op=insert&action=do&target=paypal">
+        <input type="image" name="submit" src="https://www.paypal.com/es_ES/i/btn/btn_buynow_LG.gif" >
+    </form>
+</div>
+</div>
